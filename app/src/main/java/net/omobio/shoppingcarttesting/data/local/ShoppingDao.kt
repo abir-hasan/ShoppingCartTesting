@@ -12,7 +12,7 @@ interface ShoppingDao {
     @Delete
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
 
-    @Query("SELECT * FROM SHOPPING_ITEMS")
+    @Query("SELECT * FROM shopping_items")
     fun observeAllShoppingItems(): StateFlow<List<ShoppingItem>>
 
     @Query("SElECT SUM(price * amount) from shopping_items")
