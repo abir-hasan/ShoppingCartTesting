@@ -1,7 +1,7 @@
 package net.omobio.shoppingcarttesting.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
-import kotlinx.coroutines.flow.StateFlow
 
 @Dao
 interface ShoppingDao {
@@ -13,8 +13,8 @@ interface ShoppingDao {
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
 
     @Query("SELECT * FROM shopping_items")
-    fun observeAllShoppingItems(): StateFlow<List<ShoppingItem>>
+    fun observeAllShoppingItems(): LiveData<List<ShoppingItem>>
 
     @Query("SElECT SUM(price * amount) from shopping_items")
-    fun observeTotalPrice():StateFlow<Float>
+    fun observeTotalPrice(): LiveData<Float>
 }
