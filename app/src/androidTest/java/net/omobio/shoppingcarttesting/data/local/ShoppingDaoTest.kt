@@ -41,6 +41,7 @@ class ShoppingDaoTest {
 
     @After
     fun teardown() {
+
         database.close()
     }
 
