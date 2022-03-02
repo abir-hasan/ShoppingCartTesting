@@ -60,4 +60,14 @@ class ShoppingDaoTest {
         assertThat(allShoppingItems).contains(shoppingItem)
     }
 
+    @Test
+    fun deleteShoppingItem() = runBlockingTest {
+        val shoppingItem =
+            ShoppingItem(name = "test", amount = 1, price = 1f, imageUrl = "url", id = 1)
+        dao.insertShoppingItem(shoppingItem)
+        dao.deleteShoppingItem(shoppingItem)
+        val allShoppingItem = dao.observeAllShoppingItems().getOrAwaitValue()
+        assertThat(allShoppingItem).doesNotContain(shoppingItem)
+    }
+
 }
