@@ -21,6 +21,7 @@ import org.junit.runner.RunWith
 @SmallTest // Specify these class will contain unit tests
 class ShoppingDaoTest {
 
+    // Rule to execute functions sequentially
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
