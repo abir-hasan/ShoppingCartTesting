@@ -1,5 +1,8 @@
 package net.omobio.shoppingcarttesting.other
 
+/**
+ * Mainly created for preventing firing of live data multiple times
+ */
 open class Event<out T>(private val content: T) {
 
     var hasBeenHandled = false
