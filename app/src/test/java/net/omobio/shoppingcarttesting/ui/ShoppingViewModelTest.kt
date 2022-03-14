@@ -2,6 +2,8 @@ package net.omobio.shoppingcarttesting.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import net.omobio.shoppingcarttesting.getOrAwaitValueTest
 import net.omobio.shoppingcarttesting.other.Constants
 import net.omobio.shoppingcarttesting.other.Status
@@ -10,6 +12,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@ExperimentalCoroutinesApi // For run runBlockingTest
 class ShoppingViewModelTest {
 
     @get:Rule
@@ -62,9 +65,11 @@ class ShoppingViewModelTest {
 
     @Test
     fun `insert shopping item with valid input, returns success`() {
-        viewModel.insertShoppingItem("name", "10", "4.5")
-        val value = viewModel.insertShoppingItemStatus.getOrAwaitValueTest()
-        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.SUCCESS)
+        runBlockingTest {
+            viewModel.insertShoppingItem("name", "10", "4.5")
+            val value = viewModel.insertShoppingItemStatus.getOrAwaitValueTest()
+            assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.SUCCESS)
+        }
     }
 
 }

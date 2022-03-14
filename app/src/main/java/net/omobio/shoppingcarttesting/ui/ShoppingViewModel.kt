@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.omobio.shoppingcarttesting.data.local.ShoppingItem
 import net.omobio.shoppingcarttesting.data.remote.responses.ImageResponse
@@ -41,7 +42,7 @@ class ShoppingViewModel @Inject constructor(
         repository.deleteShoppingItem(shoppingItem)
     }
 
-    fun insertShoppingItemInDb(shoppingItem: ShoppingItem) = viewModelScope.launch {
+    fun insertShoppingItemInDb(shoppingItem: ShoppingItem) = viewModelScope.launch(Dispatchers.IO) {
         repository.insertShoppingItem(shoppingItem)
     }
 
