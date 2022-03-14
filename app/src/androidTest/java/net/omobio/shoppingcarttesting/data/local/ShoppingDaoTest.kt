@@ -6,6 +6,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import net.omobio.shoppingcarttesting.getOrAwaitValue
@@ -14,28 +16,38 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import javax.inject.Inject
+import javax.inject.Named
 
 
 @ExperimentalCoroutinesApi // For run runBlockingTest
-@RunWith(AndroidJUnit4::class) // Specify that these tests are instrumented and will run in emulator
+//@RunWith(AndroidJUnit4::class) // Specify that these tests are instrumented and will run in emulator
 @SmallTest // Specify these class will contain unit tests
+@HiltAndroidTest
 class ShoppingDaoTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     // Rule to execute functions sequentially
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var database: ShoppingItemDatabase
+    @Inject
+    @Named("test_db")
+    lateinit var database: ShoppingItemDatabase
+
     private lateinit var dao: ShoppingDao
 
     @Before
     fun setup() {
-        database = Room.inMemoryDatabaseBuilder(
+        /*database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             ShoppingItemDatabase::class.java
         )
             .allowMainThreadQueries()
-            .build()
+            .build()*/
+        hiltRule.inject()
 
         dao = database.shoppingDao()
     }
