@@ -3,7 +3,7 @@ package net.omobio.shoppingcarttesting.repositories
 import androidx.lifecycle.LiveData
 import net.omobio.shoppingcarttesting.data.local.ShoppingItem
 import net.omobio.shoppingcarttesting.data.remote.responses.ImageResponse
-import net.omobio.shoppingcarttesting.other.APIResponse
+import net.omobio.shoppingcarttesting.other.Resource
 
 interface ShoppingRepository {
 
@@ -15,5 +15,5 @@ interface ShoppingRepository {
 
     fun observeTotalPrice(): LiveData<Float>
 
-    suspend fun searchForImage(imageQuery: String): APIResponse<ImageResponse>
+    suspend fun searchForImage(imageQuery: String): Resource<ImageResponse>
 }

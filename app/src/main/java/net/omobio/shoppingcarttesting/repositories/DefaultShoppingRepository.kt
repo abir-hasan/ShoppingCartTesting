@@ -5,7 +5,7 @@ import net.omobio.shoppingcarttesting.data.local.ShoppingDao
 import net.omobio.shoppingcarttesting.data.local.ShoppingItem
 import net.omobio.shoppingcarttesting.data.remote.PixabayAPI
 import net.omobio.shoppingcarttesting.data.remote.responses.ImageResponse
-import net.omobio.shoppingcarttesting.other.APIResponse
+import net.omobio.shoppingcarttesting.other.Resource
 import javax.inject.Inject
 
 class DefaultShoppingRepository @Inject constructor(
@@ -29,22 +29,22 @@ class DefaultShoppingRepository @Inject constructor(
         return shoppingDao.observeTotalPrice()
     }
 
-    override suspend fun searchForImage(imageQuery: String): APIResponse<ImageResponse> {
+    override suspend fun searchForImage(imageQuery: String): Resource<ImageResponse> {
         return try {
             val response = pixabayAPI.searchForImage(imageQuery)
             if (response.isSuccessful) {
                 val body = response.body()
                 body?.let {
-                    APIResponse.success(it)
+                    Resource.success(it)
                 } ?: run {
-                    APIResponse.error(null, "Unknown Error Occurred!")
+                    Resource.error(null, "Unknown Error Occurred!")
                 }
             } else {
-                APIResponse.error(null, "Unknown Error Occurred!")
+                Resource.error(null, "Unknown Error Occurred!")
             }
 
         } catch (e: Exception) {
-            APIResponse.error(null, "Couldn't Reach the server. Check Internet!")
+            Resource.error(null, "Couldn't Reach the server. Check Internet!")
         }
     }
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import net.omobio.shoppingcarttesting.data.local.ShoppingItem
 import net.omobio.shoppingcarttesting.data.remote.responses.ImageResponse
-import net.omobio.shoppingcarttesting.other.APIResponse
+import net.omobio.shoppingcarttesting.other.Resource
 
 /**
  * Fake Repository class to simulate it's actual counter part
@@ -52,11 +52,11 @@ class FakeShoppingRepository : ShoppingRepository {
         return observableTotalPrice
     }
 
-    override suspend fun searchForImage(imageQuery: String): APIResponse<ImageResponse> {
+    override suspend fun searchForImage(imageQuery: String): Resource<ImageResponse> {
         return if (shouldReturnNetworkError) {
-            APIResponse.error(null, "Error Occurred!")
+            Resource.error(null, "Error Occurred!")
         } else {
-            APIResponse.success(ImageResponse(listOf(), 0, 0))
+            Resource.success(ImageResponse(listOf(), 0, 0))
         }
     }
 

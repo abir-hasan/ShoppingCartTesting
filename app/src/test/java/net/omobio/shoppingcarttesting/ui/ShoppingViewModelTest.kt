@@ -1,14 +1,19 @@
 package net.omobio.shoppingcarttesting.ui
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
 import net.omobio.shoppingcarttesting.getOrAwaitValueTest
 import net.omobio.shoppingcarttesting.other.Constants
 import net.omobio.shoppingcarttesting.other.Status
 import net.omobio.shoppingcarttesting.repositories.FakeShoppingRepository
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class ShoppingViewModelTest {
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: ShoppingViewModel
 
