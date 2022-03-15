@@ -47,6 +47,7 @@ class ShoppingDaoTest {
         )
             .allowMainThreadQueries()
             .build()*/
+
         hiltRule.inject()
 
         dao = database.shoppingDao()
